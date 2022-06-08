@@ -351,7 +351,7 @@
             method:"POST",
             dataType : "json",
             data:{'id_jugador': <?= $usuario ?>, 'nivel_jugador': level, 'question':1, 'answer':"hola"},
-            url: 'home/level/',
+            url: 'Home/level/',
             success: function(response){ 
               console.log(response);
             }
@@ -369,7 +369,7 @@
         $.ajax({
             method:"GET",
             dataType: "json",
-            url:'home/user/<?= $usuario ?>',
+            url:'Home/user/<?= $usuario ?>',
             success: function(response){
                 var data=""
                 $.each(response, function(key, value){
@@ -391,7 +391,7 @@
         $.ajax({
             method:"GET",
             dataType: "json",
-            url:'main/question/1',
+            url:'Main/question/1',
             success: function(params){
                 var data=""
                 var optiona=""

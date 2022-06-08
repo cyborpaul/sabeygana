@@ -52,7 +52,7 @@
             <span class="float-right text-muted text-sm"></span>
           </a>
           <div class="dropdown-divider"></div>
-          <a href="/sabeygana/main/logout" class="dropdown-item dropdown-footer">Cerrar sesión</a>
+          <a href="/sabeygana/Main/logout" class="dropdown-item dropdown-footer">Cerrar sesión</a>
         </div>
       </li>
       <li class="nav-item">

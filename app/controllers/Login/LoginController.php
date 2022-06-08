@@ -44,7 +44,7 @@ class LoginController extends Controller
     $this->session->add('nombre', $result->usu_txt_nombre);
     $this->session->add('usuario',$result->usu_int_id);
     $this->session->add('level',$result->last_level);
-    header('location: /sabeygana/main');
+    header('location: /sabeygana/Main');
   }
 
   private function verify($request_params)
