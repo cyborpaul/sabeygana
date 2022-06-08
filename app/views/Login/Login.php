@@ -66,7 +66,7 @@
         <a href="forgot-password.html">¿Olvidaste tu contraseña?</a>
       </p>
       <p class="mb-0">
-        <a href="/sabeygana/RRegister" class="text-center">Registar nueva cuenta</a>
+        <a href="/sabeygana/Register" class="text-center">Registar nueva cuenta</a>
       </p>
     </div>
     <!-- /.card-body -->
