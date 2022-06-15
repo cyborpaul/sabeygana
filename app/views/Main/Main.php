@@ -198,7 +198,7 @@
 
 <div class="col-12 col-sm-6 col-md-6">
   <div class="custom-control custom-radio">
-    <input class="radioin custom-control-input" type="radio" id="customRadio4" name="customRadio" value="4">
+    <input class="radioin custom-control-input" type="radio" id="customRadio4" name="customRadio" value="4" >
     <label for="customRadio4" class="custom-control-label" id="optiond"></label>
   </div>
 </div>
@@ -208,7 +208,7 @@
 
 <div class="col-12 col-sm-6 col-md-6">
   <div class="custom-control custom-radio">
-    <input class="radioin custom-control-input" type="radio" id="customRadio5" name="customRadio" value="5" >
+    <input class="radioin custom-control-input" type="radio" id="customRadio5" name="customRadio" value="5" unchecked>
     <label for="customRadio5" class="custom-control-label" id="optione"></label>
   </div>
 </div>
@@ -226,8 +226,9 @@
 <div class="row justify-content-center">
 <div class="">
   <input type="text" style="display:none;" id="nivel" value="<?=$level?>">
-  <input type="text" style="" id="counter" value="20">
-<input type="button" class="btn btn-success" id="next" value="Siguiente">
+  <input type="hidden" style="" id="mtsbt34" value="">
+  
+<input type="button" class="btn btn-success" style="" id="next" value="Siguiente">
                     <!-- /.description-block -->
                   </div>
                   <!-- /.col -->
@@ -276,73 +277,79 @@
 
 <script>
 
-
         $(document).on('click', '#determinante', function(){ 
           $('#game').attr('style'," ");
           $('#determinantefour').attr('style',"display:none;"); 
-
           actualizarTiempo();
-
         });
 
-        $(document).on('click', '#next', function(){           
+        $(document).on('click', '#next', function(){                    
           let button = document.querySelector("#next");
           button.disabled = true;
           $('customRadio').attr('checked',"false"); 
-          $('#next').attr('value',"Verificando ... ");
-          $('#counter').attr('id',"counter2"); 
-          $('#counter2').attr('value',"30"); 
-                    
+          $('#next').attr('value',"Verificando ... ");  
+          
+                             
           actualizar();    
           setTimeout(() => {
             button.disabled = false;
             $('#next').attr('value',"Siguiente ");
-            
+            actualizarTiempo();                        
             allData();
-            question();            
-          }, 2000);          
-
-        });  
-
-
-
-        var count= $('#counter').val(); 
-        var cont2=$('#counter2').val();
-        if(count==20){
-          var segundos=count;
-        }if(count==15){
-          var segundos=count2;
-        }
-         
-        function actualizarTiempo(){     
+            question(); 
+            validar(); 
+            $('#next').attr('class',"btn btn-success");
+          var inputs = document.querySelectorAll('.radioin');
+          for (var i = 0; i < inputs.length; i++) {
+              inputs[i].checked = false;
+          }
           
-            $('#timer').html('Tiempo: '+ segundos);
-            if(segundos==0){
-              let button = document.querySelector("#next");
-              button.disabled = true;
-              $('#next').attr('class',"btn btn-danger");
-              $('#next').attr('value',"Perdiste :( ");
-              alert('Se termino el tiempo');
+          }, 2000);  
 
-            }else if(segundos<5){
-              $('#timer').attr('style',"color:red;");
-              segundos--; 
-              setTimeout(() => {
-                actualizarTiempo();              
-              }, 1000);
+          
+        }); 
 
-            }else{
-              segundos--; 
-              setTimeout(() => {
-                actualizarTiempo();              
-              }, 1000);
-
+        function validar(){
+                   
+          var checks = document.querySelectorAll('.radioin');
+          checks.forEach((e)=>{
+            var gtuans= $('#mtsbt34').val(); 
+            if(e.checked==true){
+              var ans23= e.value;
+              if(gtuans==ans23){
+                alert("Correcto");
+              }else{
+                alert("Incorrecto");
+                $('#game').attr('style',"display:none; ");
+                $('#determinantefour').attr('style'," "); 
+              }
             }
+          })
 
-                    
-        }      
+        }
 
+              
+        function actualizarTiempo(){ 
+          let numero=6;
+          let lanzamiento=setInterval(() => {            
+            numero--;  
+            $('#timer').html('Tiempo: '+ numero);
+            $('#timer').attr('style',"color:red;");
+            if(numero==0){
+              let button = document.querySelector("#next");
+              button.disabled = false;
+              $('#next').attr('class',"btn btn-danger");
+              $('#timer').html('Se agotó el tiempo :c');
+              $('#next').attr('style',"");
+              $('#next').attr('value',"Volver a intentarlo");              
+              clearInterval(lanzamiento);
+              
+            }     
+            
+          }, 1000);                    
+        }
         
+         
 
     function actualizar(){        
         var id_user = <?= $usuario ?>;
@@ -382,7 +389,7 @@
                 
             }
         })       
-    }
+    }allData();
 
 
 
@@ -399,6 +406,7 @@
                 var optionc=""
                 var optiond=""
                 var optione=""
+                var answww=""
                 
                 $.each(params, function(key, value){
                   console.log(params);
@@ -407,21 +415,32 @@
                     optionb=optionb+ value.optionb,
                     optionc=optionc+ value.optionc,
                     optiond=optiond+ value.optiond,
-                    optione=optione+ value.optione
+                    optione=optione+ value.optione,
+                    answww=answww+value.ontiy
                     
                                 
                 })
                 $('#question').html(data);
                 $('#optiona').html(optiona);
+                $('#customRadio1').attr('value', optiona);
                 $('#optionb').html(optionb);
+                $('#customRadio2').attr('value', optionb);
                 $('#optionc').html(optionc);
+                $('#customRadio3').attr('value', optionc);
                 $('#optiond').html(optiond);
+                $('#customRadio4').attr('value', optiond);
                 $('#optione').html(optione);
+                $('#customRadio5').attr('value', optione);
+                $('#mtsbt34').attr('value', answww);
+                
+                
                 
             }
         })
     }
     question();
+
+    
     
 
 </script>

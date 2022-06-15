@@ -45,7 +45,8 @@ class MainController extends Controller
       'optionb'=>$this->optionb,
       'optionc'=>$this->optionc,
       'optiond'=>$this->optiond,
-      'optione'=>$this->optione
+      'optione'=>$this->optione,
+      'ontiy'=>$this->ontiy
 
     );
     header('Content-Type: application/json');
@@ -60,7 +61,8 @@ class MainController extends Controller
     $this->optionb = $res['pre_varchar_optionb'];
     $this->optionc = $res['pre_varchar_optionc'];
     $this->optiond = $res['pre_varchar_optiond'];
-    $this->optione = $res['pre_varchar_optione'];    
+    $this->optione = $res['pre_varchar_optione'];  
+    $this->ontiy=$res['pre_varchar_respuesta'];  
     $this->showquestion();
   }
 
