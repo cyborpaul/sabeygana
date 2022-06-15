@@ -320,7 +320,7 @@
                 alert("Correcto");
               }else{
                 alert("Incorrecto");
-                $('#game').attr('style',"display:none; ");
+                $('#game').attr('style',"display:none;");
                 $('#determinantefour').attr('style'," "); 
               }
             }
