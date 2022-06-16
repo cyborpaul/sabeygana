@@ -50,7 +50,7 @@ class MainController extends Controller
 
     );
     header('Content-Type: application/json');
-    echo json_encode($params);
+    echo json_encode($res);
 
   }
   public function question($param)
