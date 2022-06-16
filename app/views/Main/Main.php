@@ -208,7 +208,7 @@
 
 <div class="col-12 col-sm-6 col-md-6">
   <div class="custom-control custom-radio">
-    <input class="radioin custom-control-input" type="radio" id="customRadio5" name="customRadio" value="5" unchecked>
+    <input class="radioin custom-control-input" type="radio" id="customRadio5" name="customRadio" value="5">
     <label for="customRadio5" class="custom-control-label" id="optione"></label>
   </div>
 </div>
