@@ -50,7 +50,6 @@ class MainController extends Controller
 
     );
     header('Content-Type: application/json');
-    var_dump
     echo json_encode(var_dump($res));
 
   }
