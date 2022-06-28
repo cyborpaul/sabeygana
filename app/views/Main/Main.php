@@ -40,7 +40,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Nivel Actual</span>
-                <span class="info-box-number">41,410</span>
+                <span class="info-box-number" id="lep">41,410</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -82,14 +82,6 @@
         <!-- /.row -->
 
         <div class="row" id="determinantefour">
-          <?php
-          $level;
-          if($level=="1"){
-            $string="Iniciar juego";            
-          }else{
-            $string="Continuar con el juego";
-          }
-          ?>
           <div class="col-md-12">
               <div class="card">
                 <div class="card-body">
@@ -137,7 +129,7 @@
   }
 }
                       </style>
-                      <input type="button" id="determinante" value="<?= $string?>">
+                      <input type="button" id="determinante" value=" ">
                     </div>  
                 </div>
                 
@@ -274,30 +266,29 @@
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
 <script src="app/assets/plugins/jquery/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
 
         $(document).on('click', '#determinante', function(){ 
           $('#game').attr('style'," ");
           $('#determinantefour').attr('style',"display:none;"); 
-          actualizarTiempo();
+          var info="complete";
+          actualizarTiempo(info);
         });
 
         $(document).on('click', '#next', function(){                    
           let button = document.querySelector("#next");
           button.disabled = true;
           $('customRadio').attr('checked',"false"); 
-          $('#next').attr('value',"Verificando ... ");  
-          
-                             
-          actualizar();    
+          $('#next').attr('value',"Verificando ... ");            
           setTimeout(() => {
             button.disabled = false;
-            $('#next').attr('value',"Siguiente ");
-            actualizarTiempo();                        
+            $('#next').attr('value',"Siguiente ");                       
             allData();
             question(); 
-            validar(); 
+            validar();
+            actualizar(); 
             $('#next').attr('class',"btn btn-success");
           var inputs = document.querySelectorAll('.radioin');
           for (var i = 0; i < inputs.length; i++) {
@@ -316,35 +307,60 @@
             var gtuans= $('#mtsbt34').val(); 
             if(e.checked==true){
               var ans23= e.value;
-              if(gtuans==ans23){
-                alert("Correcto");
-              }else{
-                alert("Incorrecto");
-                $('#game').attr('style',"display:none;");
+              if(gtuans==ans23){                
+                Swal.fire('Correcto');
+                actualizar();
                 $('#determinantefour').attr('style'," "); 
+                $('#game').attr('style',"display:none;");                
+                allData();
+                
+              }else{
+                Swal.fire('Incorrecto');
+                $('#nivel').attr('value', "0"); 
+                actualizar();
+                $('#game').attr('style',"display:none;");
+                $('#determinantefour').attr('style'," ");
+                allData(); 
+                
               }
             }
-          })
+          })         
 
         }
 
               
-        function actualizarTiempo(){ 
+        function actualizarTiempo(info){ 
+          let vart=info;
+          console.log(vart);
           let numero=6;
           let lanzamiento=setInterval(() => {            
             numero--;  
             $('#timer').html('Tiempo: '+ numero);
             $('#timer').attr('style',"color:red;");
-            if(numero==0){
-              let button = document.querySelector("#next");
-              button.disabled = false;
-              $('#next').attr('class',"btn btn-danger");
-              $('#timer').html('Se agotó el tiempo :c');
-              $('#next').attr('style',"");
-              $('#next').attr('value',"Volver a intentarlo");              
-              clearInterval(lanzamiento);
+              if(numero==0){
+
+                Swal.fire(
+                'Se agotó el tiempo',
+                'Por favor continue',
+                'error'
+                );
+                $('#nivel').attr('value', "1"); 
+                $('#game').attr('style',"display:none;");
+                $('#determinantefour').attr('style'," "); 
+                let button = document.querySelector("#next");
+                button.disabled = false;
+                $('#timer').html('Se agotó el tiempo :c');
+                $('#next').attr('style',"");
+                $('#next').attr('value',"Volver a intentarlo");              
+                clearInterval(lanzamiento);
+                allData();
+                
+             
               
-            }     
+            } 
+
+            
+    
             
           }, 1000);                    
         }
@@ -354,6 +370,7 @@
     function actualizar(){        
         var id_user = <?= $usuario ?>;
         var level= $('#nivel').val();
+
         $.ajax({
             method:"POST",
             dataType : "json",
@@ -369,6 +386,8 @@
 
         
     } 
+
+
     
 
     function allData(){
@@ -382,14 +401,28 @@
                 $.each(response, function(key, value){
                   console.log(response);
                     data=data +value.nivel                                
-                })
+                })                
                 $('#tarjeta').html(data);
-                $('#nivel').attr('value', data);  
+                $('#nivel').attr('value', data); 
+                $('#lep').html(data); 
+                
                 
                 
             }
-        })       
+        }) 
+             
     }allData();
+
+
+    function data(){
+      var data= $('#nivel').val();
+      console.log(data);
+      if(data==0){
+        $('#determinante').attr('value',"Iniciar juego"); 
+      }else{
+        $('#determinante').attr('value',"Continuar con el juego");
+      }
+    }data(); 
 
 
 

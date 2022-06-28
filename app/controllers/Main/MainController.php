@@ -65,7 +65,4 @@ class MainController extends Controller
     $this->ontiy=$res['pre_varchar_respuesta'];  
     $this->showquestion();
   }
-
-
-
 }
