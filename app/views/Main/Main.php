@@ -25,7 +25,7 @@
               <div class="info-box-content">
                 <span class="info-box-text">SALDO</span>
                 <span class="info-box-number">
-                  3
+                  10
                   <small>Soles</small>
                 </span>
               </div>
