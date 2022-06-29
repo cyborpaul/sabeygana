@@ -21,13 +21,15 @@ class HomeModel extends Model
     return $this->db->query("SELECT * FROM `sanmarcos_usuarios` WHERE usu_int_id = $id")->fetch_array(MYSQLI_ASSOC);
   }
   public function getPreguntas($id){
-    return $this->db->query("SELECT * FROM inventalogame_prueba WHERE niv_int_id='1' ORDER BY rand() LIMIT 1 ")->fetch_array(MYSQLI_ASSOC);
+    return $this->db->query("SELECT * FROM preguntas_prueba WHERE niv_int_id='1' ORDER BY rand() LIMIT 1 ")->fetch_array(MYSQLI_ASSOC);
   }
   public function actualizarJugador($request_params){
     $id = $request_params['id_jugador'];
     $nivel= $request_params['nivel_jugador'];
     $nivelexitoso=$nivel+1;
-    return $this->db->query("UPDATE `sanmarcos_usuarios` SET `last_level` = '$nivelexitoso' WHERE `usu_int_id` = '$id'");
+    $salfi=$request_params['saldo'];
+    $saldo=$salfi;
+    return $this->db->query("UPDATE `sanmarcos_usuarios` SET `last_level` = '$nivelexitoso', saldo='$saldo' WHERE `usu_int_id` = '$id'");
   }
   
   public function actualizarJugada($request_params){

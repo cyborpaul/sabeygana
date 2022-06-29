@@ -57,9 +57,11 @@ class HomeController extends Controller
     $res = $this->model->getUser($param);
     $this->nombre = $res['usu_int_id'];
     $this->nivelactual=$res['last_level'];
+    $this->saldo=$res['saldo'];
     $params[] = array(
       'nombre' => $this->nombre,
-      'nivel'=> $this->nivelactual
+      'nivel'=> $this->nivelactual,
+      'saldo'=> $this->saldo
     );
     header('Content-Type: application/json');
     echo json_encode($params);
@@ -71,6 +73,7 @@ class HomeController extends Controller
     $nivelexitoso=$nivel+1;
     $id_pregunta=$request_params['question'];
     $respuesta=$request_params['answer'];
+    $saldo=$request_params['saldo'];
 
     $res=$this->model->actualizarJugada($request_params);
     $actualizar=$this->model->actualizarJugador($request_params);

@@ -24,7 +24,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">SALDO</span>
-                <span class="info-box-number">
+                <span class="info-box-number" id="salfi">
                   9
                   <small>Soles</small>
                 </span>
@@ -218,6 +218,7 @@
 <div class="row justify-content-center">
 <div class="">
   <input type="text" style="display:none;" id="nivel" value="<?=$level?>">
+  <input type="text" style="display:none;" id="saldo" value="10">
   <input type="hidden" style="" id="mtsbt34" value="">
   
 <input type="button" class="btn btn-success" style="" id="next" value="Siguiente">
@@ -286,9 +287,8 @@
             button.disabled = false;
             $('#next').attr('value',"Siguiente ");                       
             allData();
-            question(); 
-            validar();
-            actualizar(); 
+            question();   
+            validar();          
             $('#next').attr('class',"btn btn-success");
           var inputs = document.querySelectorAll('.radioin');
           for (var i = 0; i < inputs.length; i++) {
@@ -309,7 +309,9 @@
               var ans23= e.value;
               if(gtuans==ans23){                
                 Swal.fire('Correcto');
-                actualizar();
+                var sal= $('#saldo').val(); 
+                var saldoor=parseFloat(sal)+1;
+                actualizar(saldoor);
                 $('#determinantefour').attr('style'," "); 
                 $('#game').attr('style',"display:none;");                
                 allData();
@@ -317,7 +319,9 @@
               }else{
                 Swal.fire('Incorrecto');
                 $('#nivel').attr('value', "0"); 
-                actualizar();
+                var sal= $('#saldo').val(); 
+                var saldoor=parseFloat(sal)-1;
+                actualizar(saldoor);
                 $('#game').attr('style',"display:none;");
                 $('#determinantefour').attr('style'," ");
                 allData(); 
@@ -344,6 +348,7 @@
                 'Por favor continue',
                 'error'
                 );
+
                 $('#nivel').attr('value', "1"); 
                 $('#game').attr('style',"display:none;");
                 $('#determinantefour').attr('style'," "); 
@@ -353,6 +358,7 @@
                 $('#next').attr('style',"");
                 $('#next').attr('value',"Volver a intentarlo");              
                 clearInterval(lanzamiento);
+
                 allData();
                 
              
@@ -367,14 +373,16 @@
         
          
 
-    function actualizar(){        
+    function actualizar(saldoor){        
         var id_user = <?= $usuario ?>;
-        var level= $('#nivel').val();
+        var level= $('#nivel').val(); 
+        var saldower=saldoor;  
+        
 
         $.ajax({
             method:"POST",
             dataType : "json",
-            data:{'id_jugador': <?= $usuario ?>, 'nivel_jugador': level, 'question':1, 'answer':"hola"},
+            data:{'id_jugador': <?= $usuario ?>, 'nivel_jugador': level, 'question':1, 'answer':"hola", 'saldo': saldower},
             url: 'Home/level/',
             success: function(response){ 
               console.log(response);
@@ -398,14 +406,18 @@
             url:'Home/user/<?= $usuario ?>',
             success: function(response){
                 var data=""
+                var saldo=""
                 $.each(response, function(key, value){
                   console.log(response);
-                    data=data +value.nivel                                
+                    data=data +value.nivel,
+                    saldo=saldo+value.saldo
+                                                   
                 })                
                 $('#tarjeta').html(data);
                 $('#nivel').attr('value', data); 
                 $('#lep').html(data); 
-                
+                $('#salfi').html(saldo);
+                $('#saldo').attr('value', saldo);
                 
                 
             }
