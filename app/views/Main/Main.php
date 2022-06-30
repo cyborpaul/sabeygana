@@ -129,7 +129,8 @@
   }
 }
                       </style>
-                      <input type="button" id="determinante" value=" ">
+                      <input type="button" id="determinante" value=" " style="">
+                      <input type="button" id="recarga" value="Recargar cuenta" style="display:none;">
                     </div>  
                 </div>
                 
@@ -218,7 +219,7 @@
 <div class="row justify-content-center">
 <div class="">
   <input type="text" style="display:none;" id="nivel" value="<?=$level?>">
-  <input type="text" style="display:none;" id="saldo" value="10">
+  <input type="text" style="" id="saldo" value="">
   <input type="hidden" style="" id="mtsbt34" value="">
   
 <input type="button" class="btn btn-success" style="" id="next" value="Siguiente">
@@ -270,40 +271,30 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-
         $(document).on('click', '#determinante', function(){ 
           $('#game').attr('style'," ");
           $('#determinantefour').attr('style',"display:none;"); 
           var info="complete";
           actualizarTiempo(info);
         });
-
-        $(document).on('click', '#next', function(){                    
-          let button = document.querySelector("#next");
-          button.disabled = true;
-          $('customRadio').attr('checked',"false"); 
-          $('#next').attr('value',"Verificando ... ");            
-          setTimeout(() => {
-            button.disabled = false;
-            $('#next').attr('value',"Siguiente ");                       
-            allData();
-            question();   
-            validar();          
-            $('#next').attr('class',"btn btn-success");
-          var inputs = document.querySelectorAll('.radioin');
-          for (var i = 0; i < inputs.length; i++) {
-              inputs[i].checked = false;
-          }
-          
-          }, 2000);  
-
-          
-        }); 
-
-        function validar(){
-                   
+              
+        function actualizarTiempo(info){ 
+          //INICIO CRONOMETRO
+          let vart=info;
+          let numero=6;
           var checks = document.querySelectorAll('.radioin');
-          checks.forEach((e)=>{
+
+          let lanzamiento=setInterval(() => {            
+            numero--;  
+            $('#timer').html('Tiempo: '+ numero);
+            $('#timer').attr('style',"color:red;");
+
+            //INICIO VALIDACIÓN
+          const button = document.querySelector("#next");  
+          button.addEventListener("click", function(evento){
+	          // Aquí todo el código que se ejecuta cuando se da click al botón
+            //validar
+            checks.forEach((e)=>{
             var gtuans= $('#mtsbt34').val(); 
             if(e.checked==true){
               var ans23= e.value;
@@ -313,7 +304,8 @@
                 var saldoor=parseFloat(sal)+1;
                 actualizar(saldoor);
                 $('#determinantefour').attr('style'," "); 
-                $('#game').attr('style',"display:none;");                
+                $('#game').attr('style',"display:none;"); 
+                clearInterval(lanzamiento);               
                 allData();
                 
               }else{
@@ -324,30 +316,32 @@
                 actualizar(saldoor);
                 $('#game').attr('style',"display:none;");
                 $('#determinantefour').attr('style'," ");
+                clearInterval(lanzamiento);
                 allData(); 
                 
               }
             }
-          })         
 
-        }
+          });
+            //validar
+            
+              button.disabled = true;
+              $('customRadio').attr('checked',"false"); 
+              $('#next').attr('value',"Verificando ... ");            
+              setTimeout(() => {
+               button.disabled = false;
+               $('#next').attr('value',"Siguiente ");                       
+               allData();
+               question();          
+               $('#next').attr('class',"btn btn-success");
+              var inputs = document.querySelectorAll('.radioin');
+              for (var i = 0; i < inputs.length; i++) {
+                  inputs[i].checked = false;
+              }          
+              }, 2000); 
+          }); 
 
-              
-        function actualizarTiempo(info){ 
-          let vart=info;
-          console.log(vart);
-          let numero=6;
-          let lanzamiento=setInterval(() => {            
-            numero--;  
-            $('#timer').html('Tiempo: '+ numero);
-            $('#timer').attr('style',"color:red;");
-              if(numero==0){
-
-                Swal.fire(
-                'Se agotó el tiempo',
-                'Por favor continue',
-                'error'
-                );
+          if(numero==0){
 
                 $('#nivel').attr('value', "1"); 
                 $('#game').attr('style',"display:none;");
@@ -358,17 +352,23 @@
                 $('#next').attr('style',"");
                 $('#next').attr('value',"Volver a intentarlo");              
                 clearInterval(lanzamiento);
-
-                allData();
+                var sal= $('#saldo').val(); 
+                var saldoor=parseFloat(sal)-1;
+                actualizar(saldoor);
                 
-             
-              
-            } 
+                Swal.fire(
+                'Se agotó el tiempo',
+                'Por favor continue',
+                'error'
+                );
+                
+              }
+              allData();
 
-            
-    
-            
-          }, 1000);                    
+
+
+          }, 1000);    
+                
         }
         
          
@@ -418,6 +418,29 @@
                 $('#lep').html(data); 
                 $('#salfi').html(saldo);
                 $('#saldo').attr('value', saldo);
+                $('#sald').attr('value', saldo);
+                                
+                if(saldo<=0){
+                  $('#determinante').attr('style',"display:none;"); 
+                  $('#recarga').attr('style'," "); 
+                  Swal.fire({
+                    title: 'No cuentas con saldo en esta cuenta, para continuar ve a recargas.',
+                    width: 600,
+                    padding: '3em',
+                    color: '#716add',
+                    showDenyButton: true,
+                    denyButtonText: `Recargar ahora :c`,
+                    background: '#fff url(/sabeygana/app/assets/img/fondo.jpg)',
+                    backdrop: `
+                      rgba(0,0,123,0.4)
+                      url("/sabeygana/app/assets/img/game.gif")
+                      left top
+                      no-repeat
+                    `
+                  })
+
+                }
+                
                 
                 
             }
@@ -484,6 +507,8 @@
         })
     }
     question();
+
+
 
     
     
