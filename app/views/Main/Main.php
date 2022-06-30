@@ -272,10 +272,15 @@
 
 <script>
         $(document).on('click', '#determinante', function(){ 
-          $('#game').attr('style'," ");
-          $('#determinantefour').attr('style',"display:none;"); 
-          var info="complete";
-          actualizarTiempo(info);
+          setTimeout(() => {
+            $('#game').attr('style'," ");
+            $('#determinantefour').attr('style',"display:none;"); 
+            var info="complete";
+            actualizarTiempo(info);
+            question();
+        
+          }, 1000);
+
         });
               
         function actualizarTiempo(info){ 
@@ -320,7 +325,7 @@
                 allData(); 
                 
               }
-              question();
+              
             }
 
           });
@@ -364,7 +369,6 @@
                 'Por favor continue',
                 'error'
                 );
-                question();
                 
               }
               allData();
@@ -511,7 +515,6 @@
             }
         })
     }
-    question();
 
 
 
