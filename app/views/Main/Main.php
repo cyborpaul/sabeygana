@@ -320,6 +320,7 @@
                 allData(); 
                 
               }
+              question();
             }
 
           });
@@ -331,15 +332,17 @@
               setTimeout(() => {
                button.disabled = false;
                $('#next').attr('value',"Siguiente ");                       
-               allData();
-               question();          
+               allData();          
                $('#next').attr('class',"btn btn-success");
               var inputs = document.querySelectorAll('.radioin');
               for (var i = 0; i < inputs.length; i++) {
                   inputs[i].checked = false;
               }          
-              }, 2000); 
-          }); 
+              }, 1000); 
+          }
+          
+          
+          ); 
 
           if(numero==0){
 
@@ -361,9 +364,11 @@
                 'Por favor continue',
                 'error'
                 );
+                question();
                 
               }
               allData();
+              
 
 
 
