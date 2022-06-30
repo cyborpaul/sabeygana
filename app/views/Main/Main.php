@@ -219,8 +219,8 @@
 <div class="row justify-content-center">
 <div class="">
   <input type="text" style="display:none;" id="nivel" value="<?=$level?>">
-  <input type="text" style="" id="saldo" value="">
-  <input type="hidden" style="" id="mtsbt34" value="">
+  <input type="text" style="display:none;" id="saldo" value="">
+  <input type="hidden" style="display:none;" id="mtsbt34" value="">
   
 <input type="button" class="btn btn-success" style="" id="next" value="Siguiente">
                     <!-- /.description-block -->
