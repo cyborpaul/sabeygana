@@ -311,7 +311,10 @@
                 $('#determinantefour').attr('style'," "); 
                 $('#game').attr('style',"display:none;"); 
                 clearInterval(lanzamiento);               
-                allData();
+                setTimeout(() => {
+                  allData(); 
+         
+                }, 300);
                 
               }else{
                 Swal.fire('Incorrecto');
