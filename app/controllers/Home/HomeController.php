@@ -58,10 +58,14 @@ class HomeController extends Controller
     $this->nombre = $res['usu_int_id'];
     $this->nivelactual=$res['last_level'];
     $this->saldo=$res['saldo'];
+    $this->ganancia=$res['usu_txt_ganancia'];
+    $this->game=$res['usu_txt_estadojuego'];
     $params[] = array(
       'nombre' => $this->nombre,
       'nivel'=> $this->nivelactual,
-      'saldo'=> $this->saldo
+      'saldo'=> $this->saldo,
+      'ganancia'=>$this->ganancia,
+      'game'=>$this->game
     );
     header('Content-Type: application/json');
     echo json_encode($params);

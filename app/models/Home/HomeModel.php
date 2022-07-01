@@ -28,8 +28,9 @@ class HomeModel extends Model
     $nivel= $request_params['nivel_jugador'];
     $nivelexitoso=$nivel+1;
     $salfi=$request_params['saldo'];
+    $ganancia=$request_params['ganancia'];
     $saldo=$salfi;
-    return $this->db->query("UPDATE `sanmarcos_usuarios` SET `last_level` = '$nivelexitoso', saldo='$saldo' WHERE `usu_int_id` = '$id'");
+    return $this->db->query("UPDATE `sanmarcos_usuarios` SET `last_level` = '$nivelexitoso', saldo='$saldo', usu_txt_ganancia='$ganancia' WHERE `usu_int_id` = '$id'");
   }
   
   public function actualizarJugada($request_params){

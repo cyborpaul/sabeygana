@@ -57,8 +57,8 @@
               <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Progreso</span>
-                <span class="info-box-number">760</span>
+                <span class="info-box-text">Ganancia</span>
+                <span class="info-box-number" id="ganancia">Ganancia</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -271,14 +271,14 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
+
         $(document).on('click', '#determinante', function(){ 
           setTimeout(() => {
             $('#game').attr('style'," ");
             $('#determinantefour').attr('style',"display:none;"); 
             var info="complete";
             actualizarTiempo(info);
-            question();
-        
+            question();        
           }, 1000);
 
         });
@@ -306,7 +306,7 @@
               if(gtuans==ans23){                
                 Swal.fire('Correcto');
                 var sal= $('#saldo').val(); 
-                var saldoor=parseFloat(sal)+1;
+                var saldoor=parseFloat(sal);
                 actualizar(saldoor);
                 $('#determinantefour').attr('style'," "); 
                 $('#game').attr('style',"display:none;"); 
@@ -336,9 +336,9 @@
               $('#next').attr('value',"Verificando ... ");            
               setTimeout(() => {
                button.disabled = false;
-               $('#next').attr('value',"Siguiente ");                       
-               allData();          
+               $('#next').attr('value',"Siguiente ");                                           
                $('#next').attr('class',"btn btn-success");
+               allData(); 
               var inputs = document.querySelectorAll('.radioin');
               for (var i = 0; i < inputs.length; i++) {
                   inputs[i].checked = false;
@@ -350,62 +350,63 @@
           ); 
 
           if(numero==0){
-
-                $('#nivel').attr('value', "1"); 
+                Swal.fire(
+                  'Se agotó el tiempo',
+                  'Por favor continue',
+                  'error'
+                );
+                $('#nivel').attr('value', "0"); 
+                var sal= $('#saldo').val(); 
+                var saldoor=parseFloat(sal)-1;
+                actualizar(saldoor);                               
                 $('#game').attr('style',"display:none;");
                 $('#determinantefour').attr('style'," "); 
-                let button = document.querySelector("#next");
-                button.disabled = false;
                 $('#timer').html('Se agotó el tiempo :c');
                 $('#next').attr('style',"");
                 $('#next').attr('value',"Volver a intentarlo");              
                 clearInterval(lanzamiento);
-                var sal= $('#saldo').val(); 
-                var saldoor=parseFloat(sal)-1;
-                actualizar(saldoor);
+                setTimeout(() => {
+                  allData(); 
+         
+                }, 500);
                 
-                Swal.fire(
-                'Se agotó el tiempo',
-                'Por favor continue',
-                'error'
-                );
+                                           
                 
-              }
-              allData();
-              
-
-
-
-          }, 1000);    
                 
+              } 
+                         
+
+          }, 1000); 
+          
+             
+        
+          
         }
         
          
 
-    function actualizar(saldoor){        
+    function actualizar(saldoor){  
+
+        var start=2;      
         var id_user = <?= $usuario ?>;
         var level= $('#nivel').val(); 
-        var saldower=saldoor;  
-        
+        if(level<=1){
+          var result=0;          
+        }else{
+          var result=Math.pow(parseFloat(start),parseFloat(level));
+        }
+        var saldower=saldoor;         
 
         $.ajax({
             method:"POST",
             dataType : "json",
-            data:{'id_jugador': <?= $usuario ?>, 'nivel_jugador': level, 'question':1, 'answer':"hola", 'saldo': saldower},
+            data:{'id_jugador': <?= $usuario ?>, 'nivel_jugador': level, 'question':1, 'answer':"hola", 'saldo': saldower, 'ganancia': result},
             url: 'Home/level/',
             success: function(response){ 
               console.log(response);
             }
-
-
-        }); 
-        
-
-        
+        });         
     } 
-
-
-    
 
     function allData(){
         
@@ -416,10 +417,12 @@
             success: function(response){
                 var data=""
                 var saldo=""
+                var ganancia=""
                 $.each(response, function(key, value){
                   console.log(response);
                     data=data +value.nivel,
-                    saldo=saldo+value.saldo
+                    saldo=saldo+value.saldo,
+                    ganancia=ganancia+value.ganancia
                                                    
                 })                
                 $('#tarjeta').html(data);
@@ -428,6 +431,7 @@
                 $('#salfi').html(saldo);
                 $('#saldo').attr('value', saldo);
                 $('#sald').attr('value', saldo);
+                $('#ganancia').html(ganancia);
                                 
                 if(saldo<=0){
                   $('#determinante').attr('style',"display:none;"); 
@@ -448,6 +452,21 @@
                     `
                   })
 
+                }if(ganancia==128){
+                  $('#determinante').attr('style',"display:none;"); 
+                  $('#recarga').attr('style'," "); 
+                  $('#recarga').attr('value',"Solicitar retiro"); 
+
+                  Swal.fire({
+                    title: 'Ganaste!!! ',
+                    width: 600,
+                    padding: '3em',
+                    color: '#716add',
+                    showDenyButton: true,
+                    denyButtonText: `Solicitar retiro`,
+                    background: '#fff url(/sabeygana/app/assets/img/fondo.jpg)'
+                  })
+
                 }
                 
                 
@@ -456,6 +475,8 @@
         }) 
              
     }allData();
+
+
 
 
     function data(){
