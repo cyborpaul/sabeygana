@@ -23,7 +23,7 @@ class RegisterModel extends Model
       $passwordcifrada=password_hash($password, PASSWORD_DEFAULT);
       
 
-      $sql="INSERT INTO `sanmarcos_usuarios`(`usu_txt_nombre`, `usu_txt_apellido`, `usu_txt_email`, `usu_txt_dni`, `usu_txt_password`, `usu_txt_rol`, `last_level`, `usu_txt_direccion`, `usu_txt_sexo`, `usu_txt_edad`, `usu_txt_telefono`, saldo) VALUES ('$nombres','$apellidos','$email','$dni','$passwordcifrada', '1', '1','$direccion', '$sexo', '$edad', '$telefono', '10')";
+      $sql="INSERT INTO `sanmarcos_usuarios`(`usu_txt_nombre`, `usu_txt_apellido`, `usu_txt_email`, `usu_txt_dni`, `usu_txt_password`, `usu_txt_rol`, `last_level`, `usu_txt_direccion`, `usu_txt_sexo`, `usu_txt_edad`, `usu_txt_telefono`, saldo, usu_txt_ganancia, usu_txt_estadojuego) VALUES ('$nombres','$apellidos','$email','$dni','$passwordcifrada', '1', '1','$direccion', '$sexo', '$edad', '$telefono', '10', '0', '0')";
       return $this->db->query($sql);
   }
 
