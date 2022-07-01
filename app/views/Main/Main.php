@@ -308,13 +308,10 @@
                 var sal= $('#saldo').val(); 
                 var saldoor=parseFloat(sal);
                 actualizar(saldoor);
+                
                 $('#determinantefour').attr('style'," "); 
                 $('#game').attr('style',"display:none;"); 
                 clearInterval(lanzamiento);               
-                setTimeout(() => {
-                  allData(); 
-         
-                }, 300);
                 
               }else{
                 Swal.fire('Incorrecto');
@@ -408,7 +405,12 @@
             success: function(response){ 
               console.log(response);
             }
-        });         
+        }); 
+        
+        setTimeout(() => {
+                  allData(); 
+         
+                }, 300);
     } 
 
     function allData(){
