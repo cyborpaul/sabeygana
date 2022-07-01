@@ -58,7 +58,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Ganancia</span>
-                <span class="info-box-number" id="ganancia">Ganancia</span>
+                <span class="info-box-number" id="ganancia">Ganan</span>
               </div>
               <!-- /.info-box-content -->
             </div>
