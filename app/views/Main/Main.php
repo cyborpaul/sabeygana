@@ -390,7 +390,7 @@
         var start=2;      
         var id_user = <?= $usuario ?>;
         var level= $('#nivel').val(); 
-        if(level<=1){
+        if(level<1){
           var result=0;          
         }else{
           var result=Math.pow(parseFloat(start),parseFloat(level));
@@ -407,10 +407,7 @@
             }
         }); 
         
-        setTimeout(() => {
-                  allData(); 
-         
-                }, 300);
+        
     } 
 
     function allData(){
