@@ -484,7 +484,7 @@
     function data(){
       var data= $('#nivel').val();
       console.log(data);
-      if(data==0){
+      if(data==1){
         $('#determinante').attr('value',"Iniciar juego"); 
       }else{
         $('#determinante').attr('value',"Continuar con el juego");
