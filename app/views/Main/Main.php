@@ -428,13 +428,7 @@
                                                    
                 })                
                 $('#tarjeta').html(data);
-                $('#nivel').attr('value', data);
-                if(data==1){
-                    ('#determinante').attr('value',"Iniciar juego"); 
-                }else{
-                   $('#determinante').attr('value',"Continuar con el juego");
-                  }
-                   
+                $('#nivel').attr('value', data); 
                 $('#lep').html(data); 
                 $('#salfi').html(saldo);
                 $('#saldo').attr('value', saldo);
@@ -483,6 +477,19 @@
         }) 
              
     }allData();
+
+
+
+
+    function data(){
+      var data= $('#nivel').val();
+      console.log(data);
+      if(data==1){
+        $('#determinante').attr('value',"Iniciar juego"); 
+      }else{
+        $('#determinante').attr('value',"Continuar con el juego");
+      }
+    }data(); 
 
 
 
