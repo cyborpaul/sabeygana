@@ -81,6 +81,7 @@ class HomeController extends Controller
 
     $res=$this->model->actualizarJugada($request_params);
     $actualizar=$this->model->actualizarJugador($request_params);
+    $actualizarmovimiento=$this->model->actualizarMovimiento($request_params);
    
     $info[]=array(
       'id_jugador'=>$id,
@@ -88,7 +89,6 @@ class HomeController extends Controller
       'id_pregunta'=>$id_pregunta,
       'respuesta'=>$respuesta
     );
-    echo json_encode($res. $actualizar);
   }
 
 

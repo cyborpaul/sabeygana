@@ -164,7 +164,7 @@
 
               <div class="card-body">
                   
-                  <div class="row justify-content-center form-group">
+                  <div class="row justify-content-center form-group" id="formid">
 
 <div class="col-12 col-sm-6 col-md-6">
   <div class="custom-control custom-radio">
@@ -276,8 +276,12 @@
           setTimeout(() => {
             $('#game').attr('style'," ");
             $('#determinantefour').attr('style',"display:none;"); 
-            var info="complete";
+            
+
+            //VALIDACIÓN DE RESPUESTAS
+            var info;
             actualizarTiempo(info);
+            
             question();        
           }, 1000);
 
@@ -288,49 +292,95 @@
           let vart=info;
           let numero=6;
           var checks = document.querySelectorAll('.radioin');
+          const button = document.querySelector("#next"); 
 
-          let lanzamiento=setInterval(() => {            
-            numero--;  
-            $('#timer').html('Tiempo: '+ numero);
-            $('#timer').attr('style',"color:red;");
+          //CRONOMETRO
 
-            //INICIO VALIDACIÓN
-          const button = document.querySelector("#next");  
-          button.addEventListener("click", function(evento){
-	          // Aquí todo el código que se ejecuta cuando se da click al botón
-            //validar
-            checks.forEach((e)=>{
-            var gtuans= $('#mtsbt34').val(); 
-            if(e.checked==true){
-              var ans23= e.value;
-              if(gtuans==ans23){                
-                Swal.fire('Correcto');
-                var sal= $('#saldo').val(); 
-                var saldoor=parseFloat(sal);
-                actualizar(saldoor);
+          let lanzamiento=setInterval(() => { 
+
+           
+              numero--;  
+
+              $('#timer').html('Tiempo: '+ numero);
+              $('#timer').attr('style',"color:red;");
+
+              //INICIO VALIDACIÓN
+
+
+              if(numero==0){
                 
+                  Swal.fire(
+                   'Se agotó el tiempo',
+                    'Por favor continue',
+                   'error'
+                 );
+                 $('#nivel').attr('value', "0"); 
+                 var sal= $('#saldo').val(); 
+                 var saldoor=parseFloat(sal)-1;
+                 var exec="-1";
+                 actualizar(saldoor,exec);                           
+                 $('#game').attr('style',"display:none;");
+                 $('#determinantefour').attr('style'," "); 
+                 $('#timer').html('Se agotó el tiempo :c');
+                 $('#next').attr('style',"");
+                 $('#next').attr('value',"Volver a intentarlo");              
+                 clearInterval(lanzamiento);
+                 setTimeout(() => {
+                   allData(); 
+                }, 500); 
+                location.reload();
+        } 
+      }, 1000);
+
+          //CRONOMETRO
+
+          
+          button.addEventListener("click", function(evento){
+            let output;
+            let optionvar;
+            clearInterval(lanzamiento); 
+
+            //
+            value =$('input[name="customRadio"]:checked').val();
+            //CONDICION DE VALIDACION
+            var gtuans= $('#mtsbt34').val();
+
+            if(gtuans==value){ 
+                                
+                Swal.fire('Correcto'); 
+                info="correcto";             
                 $('#determinantefour').attr('style'," "); 
                 $('#game').attr('style',"display:none;"); 
-                clearInterval(lanzamiento);               
+                var sal= $('#saldo').val(); 
+                var saldoor=parseFloat(sal)
+                var exec="0";                 
+                actualizar(saldoor,exec);
+                setTimeout(() => {
+                  location.reload();
+                }, 2000);
+                
+                             
                 
               }else{
+                clearInterval(lanzamiento); 
                 Swal.fire('Incorrecto');
+                info="incorrecto";
                 $('#nivel').attr('value', "0"); 
-                var sal= $('#saldo').val(); 
-                var saldoor=parseFloat(sal)-1;
-                actualizar(saldoor);
                 $('#game').attr('style',"display:none;");
                 $('#determinantefour').attr('style'," ");
-                clearInterval(lanzamiento);
-                allData(); 
+                var sal= $('#saldo').val(); 
+                var saldoor=parseFloat(sal)-1;
+                var exec="-1";                 
+                actualizar(saldoor,exec);
+                setTimeout(() => {
+                  location.reload();
+                }, 2000);
                 
+                           
               }
-              
-            }
 
-          });
-            //validar
-            
+
+            //
               button.disabled = true;
               $('customRadio').attr('checked',"false"); 
               $('#next').attr('value',"Verificando ... ");            
@@ -344,39 +394,9 @@
                   inputs[i].checked = false;
               }          
               }, 1000); 
-          }
-          
-          
-          ); 
+          });
 
-          if(numero==0){
-                Swal.fire(
-                  'Se agotó el tiempo',
-                  'Por favor continue',
-                  'error'
-                );
-                $('#nivel').attr('value', "0"); 
-                var sal= $('#saldo').val(); 
-                var saldoor=parseFloat(sal)-1;
-                actualizar(saldoor);                               
-                $('#game').attr('style',"display:none;");
-                $('#determinantefour').attr('style'," "); 
-                $('#timer').html('Se agotó el tiempo :c');
-                $('#next').attr('style',"");
-                $('#next').attr('value',"Volver a intentarlo");              
-                clearInterval(lanzamiento);
-                setTimeout(() => {
-                  allData(); 
-         
-                }, 500);
-                
-                                           
-                
-                
-              } 
-                         
-
-          }, 1000); 
+ 
           
              
         
@@ -385,8 +405,7 @@
         
          
 
-    function actualizar(saldoor){  
-
+    function actualizar(saldoor,exec){  
         var start=2;      
         var id_user = <?= $usuario ?>;
         var level= $('#nivel').val(); 
@@ -400,7 +419,7 @@
         $.ajax({
             method:"POST",
             dataType : "json",
-            data:{'id_jugador': <?= $usuario ?>, 'nivel_jugador': level, 'question':1, 'answer':"hola", 'saldo': saldower, 'ganancia': result},
+            data:{'id_jugador': <?= $usuario ?>, 'nivel_jugador': level, 'question':1, 'answer':"hola", 'saldo': saldower, 'ganancia': result, 'exec':exec},
             url: 'Home/level/',
             success: function(response){ 
               console.log(response);
