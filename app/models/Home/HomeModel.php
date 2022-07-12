@@ -58,8 +58,12 @@ class HomeModel extends Model
     $zonahoraria="-5";
     $formato="Y-m-d H:i:s a";
     $time=gmdate($formato, time()+($zonahoraria*3600));
-    return $this->db->query("INSERT INTO `inventalogame_movimientos`(`usu_int_id`, `mov_varchar_evento`, `mov_varchar_concepto`, `mov_varchar_date`) VALUES ('$id','$movimiento','$concepto','$time')");
+    if($movimiento=="-1"){
+      return $this->db->query("INSERT INTO `inventalogame_movimientos`(`usu_int_id`, `mov_varchar_evento`, `mov_varchar_concepto`, `mov_varchar_date`) VALUES ('$id','$movimiento','$concepto','$time')");
 
+    }else{
+      return "Problema en el registro de movimiento";
+    }
   }
 
 
