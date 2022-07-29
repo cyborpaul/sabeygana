@@ -7,15 +7,14 @@
     <title>Document</title>
 </head>
 <body>
-    <input type="text" name="custom-radio" value="1">
-    <input type="text" name="custom-radio" value="2">
-    <input type="text" name="custom-radio" value="3">
-    <input type="text" name="custom-radio" value="4">
+    <input type="text" name="customRadio" value="1">
+    <input type="text" name="customRadio" value="2">
+    <input type="text" name="customRadio" value="3">
+    <input type="text" name="customRadio" value="4">
     <button id="next">lIMPIAR</button>
-    
-</body>
-</html>
 
+    
+<script src="app/assets/plugins/jquery/jquery.min.js"></script>
 <script>
     var value="";
     const button = document.querySelector("#next"); 
@@ -42,3 +41,7 @@
 
     }, 1000); 
 </script>
+    
+</body>
+
+</html>
