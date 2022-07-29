@@ -92,4 +92,34 @@ class HomeController extends Controller
   }
 
 
+
+  public function showquestion(){
+    $params[] = array(
+      'pregunta' => $this->question,
+      'optiona'=>$this->optiona,
+      'optionb'=>$this->optionb,
+      'optionc'=>$this->optionc,
+      'optiond'=>$this->optiond,
+      'optione'=>$this->optione,
+      'ontiy'=>$this->ontiy
+
+    );
+    header('Content-Type: application/json');
+    echo json_encode($params);
+
+  }
+  public function question($param)
+  {
+    $res = $this->model->getPreguntas($param);
+    $this->question = $res['pre_txt_preguntas'];
+    $this->optiona = $res['pre_varchar_optiona'];
+    $this->optionb = $res['pre_varchar_optionb'];
+    $this->optionc = $res['pre_varchar_optionc'];
+    $this->optiond = $res['pre_varchar_optiond'];
+    $this->optione = $res['pre_varchar_optione'];  
+    $this->ontiy=$res['pre_varchar_respuesta'];  
+    $this->showquestion();
+  }
+
+
 }

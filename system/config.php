@@ -38,9 +38,9 @@ define('DEFAULT_CONTROLLER', 'Home');
 
 define('HOST', 'localhost');
 define('USER', 'root');
-//define('PASSWORD', '');
+define('PASSWORD', '');
 define('PASSWORD', 'RPJsh8E4a9#C9v');
-define('DB_NAME', 'inventalogame');
+//define('DB_NAME', 'inventalogame');
 
 //////////////////////////////////////
 // Valores configuracion
