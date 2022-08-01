@@ -56,13 +56,30 @@ class MainController extends Controller
   public function question($param)
   {
     $res = $this->model->getPreguntas($param);
-    $this->question = $res['pre_txt_preguntas'];
+    $key= "qwertyuiopasdfghjklñzxcvbnm";
+    $pregunta = '';
+    $nombre = base64_decode($res['pre_txt_preguntas']);
+    for($i=0; $i<strlen($nombre); $i++) {
+       $char = substr($nombre, $i, 1);
+       $keychar = substr($key, ($i % strlen($key))-1, 1);
+       $char = chr(ord($char)-ord($keychar));
+       $pregunta.=$char;
+    }
+    $respuesta='';
+    $pass = base64_decode($res['pre_varchar_respuesta']);
+    for($i=0; $i<strlen($pass); $i++) {
+       $char = substr($pass, $i, 1);
+       $keychar = substr($key, ($i % strlen($key))-1, 1);
+       $char = chr(ord($char)-ord($keychar));
+       $respuesta.=$char;
+    }
+    $this->question = $pregunta;
     $this->optiona = $res['pre_varchar_optiona'];
     $this->optionb = $res['pre_varchar_optionb'];
     $this->optionc = $res['pre_varchar_optionc'];
     $this->optiond = $res['pre_varchar_optiond'];
     $this->optione = $res['pre_varchar_optione'];  
-    $this->ontiy=$res['pre_varchar_respuesta'];  
+    $this->ontiy=$respuesta;  
     $this->showquestion();
   }
 }
