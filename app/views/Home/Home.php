@@ -14,7 +14,7 @@
   <div class="jumbotron header" style="">
     <div class="container text-center">
       <h1>Hola</h1>
-      <p>Sabe y gana - Aplicación web</p> <?= $_SERVER['SERVER_NAME']. '/login/signin' ?>
+      <p>Sabe y gana - Aplicación web</p> <?= $_SERVER['SERVER_NAME']. '/login/signin' .PHP_VERSION_ID?>
       <p><a class="btn btn-primary btn-lg button" href="/sabeygana/Login" role="button">Iniciar juego</a></p>
     </div>
   </div>
