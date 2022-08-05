@@ -9,11 +9,11 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="app/assets/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="<?=FOLDER_PATH?> /app/assets/plugins/fontawesome-free/css/all.min.css">
   <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="/app/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <link rel="stylesheet" href="<?=FOLDER_PATH?> /app/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="app/assets/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="<?=FOLDER_PATH?> /app/assets/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -63,7 +63,7 @@
       <!-- /.social-auth-links -->
 
       <p class="mb-1">
-        <a href="forgot-password.html">¿Olvidaste tu contraseña?</a>
+        <a href="/sabeygana/Password">¿Olvidaste tu contraseña?</a>
       </p>
       <p class="mb-0">
         <a href="/sabeygana/Register" class="text-center">Registar nueva cuenta</a>
