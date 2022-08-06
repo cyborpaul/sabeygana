@@ -22,10 +22,7 @@ class ResetpasswordController extends Controller
 
     public function exec()
     {
-      $params = array(
-        'email' => 'PRUEBA',
-      );
-      $this->render(__CLASS__,$params);
+      $this->render(__CLASS__);
     }
 
 
