@@ -32,10 +32,6 @@ class ResetpasswordController extends Controller
       $this->render(__CLASS__,$params);
     }
 
-    public function get($key)
-    {
-      return !empty($res[$key]) ? $res[$key] : null;
-    }
 
     public function verifycod($request_params){
       $mail=$this->session->get('email');

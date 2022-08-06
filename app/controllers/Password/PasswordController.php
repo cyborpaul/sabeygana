@@ -28,17 +28,20 @@ class PasswordController extends Controller
     }
 
     public function verifyaccount($request_params){
-        $email=$request_params['email'];
+        $mail=$request_params['email'];
 
         $result = $this->model->verify($request_params);
 
         if($result->num_rows){
-            $codigo=rand(pow(10, 5-1), pow(10, 5)-1);
-            $update=$this->model->updatecode($codigo, $email);
-            $this->enviarmail($codigo);
             $this->session->init();
-            $this->session->add('email', $email);
+            $codigo=rand(pow(10, 5-1), pow(10, 5)-1);
+            $update=$this->model->updatecode($codigo, $mail);
+            $this->enviarmail($codigo, $mail);
+            
+            $this->session->add('email', $mail);
             header('location: /sabeygana/Resetpassword');
+            
+            
 
             
 
@@ -54,11 +57,11 @@ class PasswordController extends Controller
 
 
 
-    public function enviarmail($codigo){
+    public function enviarmail($codigo, $mail){
 
-        $from = new SendGrid\Mail\From("ssabeygana.iq@gmail.com", "SABE Y GANA");
+        $from = new SendGrid\Mail\From("ssabeygana.iq@gmail.com", "LIONCODE");
         $subject = new SendGrid\Mail\Subject("Restablecimiento de contraseña");
-        $to = new SendGrid\Mail\To("leowaldir2000@gmail.com", "Paul");
+        $to = new SendGrid\Mail\To($mail, "Cliente");
         $plainTextContent = new SendGrid\Mail\PlainTextContent(   
         "Restablecimiento de contraseña."
         );
@@ -134,15 +137,22 @@ class PasswordController extends Controller
         );
         $sendgrid = new \SendGrid('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');
         try {
+
             $response = $sendgrid->send($email);
-            print $response->statusCode() . "\n";
-            print_r($response->headers());
-            print $response->body() . "\n";
+
+            //echo "<script>location.href='/sabeygana/Resetpassword';</script>";
+            
         } catch (Exception $e) {
+            
             echo 'Caught exception: '.  $e->getMessage(). "\n";
         }
 
+        
+
+
+
     }
+    
 
 
 
