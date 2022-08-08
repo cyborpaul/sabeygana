@@ -25,7 +25,7 @@ class ResetpasswordController extends Controller
     }
 
 
-    public function verifycod($request_params){
+/*     public function verifycod($request_params){
       $cod=$this->model->verifycodreset($request_params);
       if($cod->num_rows){
           header('location: /sabeygana/Passwordnewreset');
@@ -34,7 +34,7 @@ class ResetpasswordController extends Controller
       }
 
   }
-
+ */
 
 
   
