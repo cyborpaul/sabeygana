@@ -1,7 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No se permite acceso directo');
 require_once ROOT . FOLDER_PATH .'/app/models/Resetpassword/ResetpasswordModel.php';
-require_once LIBS_ROUTE .'Session.php';
 
 class ResetpasswordController extends Controller
 {
@@ -27,7 +26,7 @@ class ResetpasswordController extends Controller
 
 
     public function verifycod($request_params){
-      $cod=$this->model->verifycodreset($request_params,$mail);
+      $cod=$this->model->verifycodreset($request_params);
       if($cod->num_rows){
           header('location: /sabeygana/Passwordnewreset');
       }else{

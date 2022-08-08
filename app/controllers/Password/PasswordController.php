@@ -31,9 +31,9 @@ class PasswordController extends Controller
         $result = $this->model->verify($request_params);
 
         if($result->num_rows){
-            $codigo=rand(pow(10, 5-1), pow(10, 5)-1);
+            //$codigo=rand(pow(10, 5-1), pow(10, 5)-1);
             //$this->enviarmail($codigo, $mail);     
-            $update=$this->model->updatecode($codigo, $mail);
+            //$update=$this->model->updatecode($codigo, $mail);
                 
             header('location: /sabeygana/Resetpassword');
             
