@@ -24,6 +24,7 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">Ingresar el código de recuperación que se envió al email para la verificación.</p>
       <form action="<?= FOLDER_PATH . '/Resetpassword/verifycod' ?>" method="post">
+      <?=$email?>
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="Ingresar código de verificación" name="cod">
           <div class="input-group-append">

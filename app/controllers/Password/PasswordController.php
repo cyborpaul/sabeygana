@@ -2,6 +2,7 @@
 defined('BASEPATH') or exit('No se permite acceso directo');
 require_once ROOT . FOLDER_PATH .'/app/models/Password/PasswordModel.php';
 require_once ROOT . FOLDER_PATH .'/app/views/Send/sendgrid-php/sendgrid-php.php';
+require_once LIBS_ROUTE .'Session.php';
 
 class PasswordController extends Controller
 {
@@ -11,6 +12,7 @@ class PasswordController extends Controller
      * object 
      */
     public $model;
+    private $session;
     /**
      * Inicializa valores 
      */
@@ -18,6 +20,7 @@ class PasswordController extends Controller
     {
       $this->model = new PasswordModel();
       $this->nombre = 'Mundo';
+      $this->session = new Session();
     }
 
     public function exec()
@@ -31,10 +34,12 @@ class PasswordController extends Controller
         $result = $this->model->verify($request_params);
 
         if($result->num_rows){
-            //$codigo=rand(pow(10, 5-1), pow(10, 5)-1);
-            //$this->enviarmail($codigo, $mail);     
-            //$update=$this->model->updatecode($codigo, $mail);
-                
+            $this->session->init();
+            $codigo=rand(pow(10, 5-1), pow(10, 5)-1);
+            $update=$this->model->updatecode($codigo, $mail);
+            $this->enviarmail($codigo, $mail);
+            
+            $this->session->add('email', $mail);
             header('location: /sabeygana/Resetpassword');
             
             
@@ -46,6 +51,12 @@ class PasswordController extends Controller
         }
 
     }
+    public function add($key, $value)
+    {
+      $res[$key] = $value;
+    }
+
+
 
     public function enviarmail($codigo, $mail){
 
