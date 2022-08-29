@@ -51,12 +51,6 @@ class PasswordController extends Controller
         }
 
     }
-    public function add($key, $value)
-    {
-      $res[$key] = $value;
-    }
-
-
 
     public function enviarmail($codigo, $mail){
 
