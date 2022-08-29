@@ -2,7 +2,7 @@
 /**
 * 
 */
-class PasswordnewresetModel extends Model
+class PruebaModel extends Model
 {
   
   public function __construct()

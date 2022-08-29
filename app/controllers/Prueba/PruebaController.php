@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No se permite acceso directo');
 require_once ROOT . FOLDER_PATH .'/app/models/Prueba/PruebaModel.php';
 
-class PasswordController extends Controller
+class PruebaController extends Controller
 {
     public $nombre;
 
