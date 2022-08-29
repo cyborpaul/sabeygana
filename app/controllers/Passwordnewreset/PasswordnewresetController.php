@@ -1,8 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No se permite acceso directo');
+require_once ROOT . FOLDER_PATH .'/app/models/Prueba/PruebaModel.php';
 require_once ROOT . FOLDER_PATH .'/app/models/Passwordnewreset/PasswordnewresetModel.php';
 require_once LIBS_ROUTE .'Session.php';
-require_once ROOT . FOLDER_PATH .'/app/models/Prueba/PruebaModel.php';
+
 class PasswordnewresetController extends Controller
 {
     public $nombre;
