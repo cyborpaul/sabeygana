@@ -40,7 +40,7 @@ class PasswordController extends Controller
             $this->enviarmail($codigo, $mail);
             $this->session->init();
             $this->session->add('email', $mail);
-            header('location: /sabeygana/Resetpassword');
+            header('location: /sabeygana/Prueba');
             
             
 
