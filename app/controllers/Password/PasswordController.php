@@ -34,11 +34,11 @@ class PasswordController extends Controller
         $result = $this->model->verify($request_params);
 
         if($result->num_rows){
-            $this->session->init();
+            
             $codigo=rand(pow(10, 5-1), pow(10, 5)-1);
             $update=$this->model->updatecode($codigo, $mail);
             $this->enviarmail($codigo, $mail);
-            
+            $this->session->init();
             $this->session->add('email', $mail);
             header('location: /sabeygana/Resetpassword');
             
@@ -56,7 +56,7 @@ class PasswordController extends Controller
 
         $from = new SendGrid\Mail\From("ssabeygana.iq@gmail.com", "LIONCODE");
         $subject = new SendGrid\Mail\Subject("Restablecimiento de contraseña");
-        $to = new SendGrid\Mail\To($mail, "Cliente");
+        $to = new SendGrid\Mail\To("$mail", "Cliente");
         $plainTextContent = new SendGrid\Mail\PlainTextContent(   
         "Restablecimiento de contraseña."
         );

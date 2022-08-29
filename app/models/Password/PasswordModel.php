@@ -16,8 +16,8 @@ class PasswordModel extends Model
     return $this->db->query($sql);
   }
 
-  public function updatecode($codigo, $email){
-    return $this->db->query("UPDATE `sanmarcos_usuarios` SET `usu_txt_codereset` = '$codigo' WHERE usu_txt_email='$email'");
+  public function updatecode($codigo, $mail){
+    return $this->db->query("UPDATE `sanmarcos_usuarios` SET `usu_txt_codereset` = '$codigo' WHERE usu_txt_email='$mail'");
 
   }
 
