@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No se permite acceso directo');
-require_once ROOT . FOLDER_PATH .'/app/models/Password/PasswordModel.php';
+
 require_once ROOT . FOLDER_PATH .'/app/models/Resetpassword/ResetpasswordModel.php';
 require_once LIBS_ROUTE .'Session.php';
 

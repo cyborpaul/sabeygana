@@ -33,5 +33,15 @@ class PruebaController extends Controller
         $this->render(__CLASS__, $params);
     }
 
+    public function verifycod($request_params){
+        $cod=$this->model->verifycodreset($request_params);
+        if($cod->num_rows){
+            header('location: /sabeygana/Passwordnewreset');
+        }else{
+            echo 'El código ingresado es incorrecto';
+        }
+  
+    }
+
 }
 ?>
