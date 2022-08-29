@@ -34,7 +34,8 @@ class PruebaController extends Controller
     }
 
     public function verifycod($request_params){
-        $cod=$this->model->verifycodreset($request_params);
+        $mail=$this->session->get('email');
+        $cod=$this->model->verifycodreset($request_params,$mail);
         if($cod->num_rows){
             header('location: /sabeygana/Passwordnewreset');
         }else{
