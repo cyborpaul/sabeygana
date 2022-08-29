@@ -7,6 +7,6 @@
     <title>GG</title>
 </head>
 <body>
-    <h3>Vista prueba</h3>
+    <h3>Vista prueba<?=$email?></h3>
 </body>
 </html>
