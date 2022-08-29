@@ -28,8 +28,7 @@ class PasswordnewresetController extends Controller
 
     public function exec()
     {
-          $this->render(__CLASS__);
-          $params = array(
+        $params = array(
             'email' => $this->session->get('email')
           );
         $this->render(__CLASS__, $params);
