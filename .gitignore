@@ -1,2 +1,1 @@
-app/controllers/Password/*
-!app/controllers/Password/PasswordController.php
+PasswordController.php
