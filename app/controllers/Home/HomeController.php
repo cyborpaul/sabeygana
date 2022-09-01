@@ -102,7 +102,8 @@ class HomeController extends Controller
       'optionc'=>$this->optionc,
       'optiond'=>$this->optiond,
       'optione'=>$this->optione,
-      'ontiy'=>$this->ontiy
+      'ontiy'=>$this->ontiy,
+      'level'=>$this->level
 
     );
     header('Content-Type: application/json');
@@ -136,6 +137,7 @@ class HomeController extends Controller
     $this->optiond = $res['pre_varchar_optiond'];
     $this->optione = $res['pre_varchar_optione'];  
     $this->ontiy=$respuesta;  
+    $this->level=$res['niv_int_id'];
     $this->showquestion();
   }
 

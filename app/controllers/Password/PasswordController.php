@@ -54,7 +54,7 @@ class PasswordController extends Controller
 
     public function enviarmail($codigo, $mail){
 
-        $from = new SendGrid\Mail\From("ssabeygana.iq@gmail.com", "LIONCODE");
+        $from = new SendGrid\Mail\From("paulgarciaproyectsg@gmail.com", "LIONCODE");
         $subject = new SendGrid\Mail\Subject("Restablecimiento de contraseña");
         $to = new SendGrid\Mail\To("$mail", "Cliente");
         $plainTextContent = new SendGrid\Mail\PlainTextContent(   
@@ -130,7 +130,7 @@ class PasswordController extends Controller
           $plainTextContent,
           $htmlContent
         );
-        $sendgrid = new \SendGrid('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');
+        $sendgrid = new \SendGrid('');
         try {
 
             $response = $sendgrid->send($email);
