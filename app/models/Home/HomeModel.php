@@ -21,7 +21,7 @@ class HomeModel extends Model
     return $this->db->query("SELECT * FROM `sanmarcos_usuarios` WHERE usu_int_id = $id")->fetch_array(MYSQLI_ASSOC);
   }
   public function getPreguntas($id){
-    return $this->db->query("SELECT * FROM inventalogame_prueba WHERE niv_int_id='1' ORDER BY rand() LIMIT 3 ")->fetch_array(MYSQLI_ASSOC);
+    return $this->db->query("SELECT * FROM inventalogame_prueba WHERE niv_int_id='$id' ORDER BY rand() LIMIT 3 ")->fetch_array(MYSQLI_ASSOC);
   }
   public function actualizarJugador($request_params){
     $id = $request_params['id_jugador'];
