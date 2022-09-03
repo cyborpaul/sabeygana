@@ -514,10 +514,11 @@
 
 
     function question(){
+        var data= $('#nivel').val();
         $.ajax({
             method:"GET",
             dataType: "json",
-            url:'Main/question/1',
+            url:'Main/question/'+data,
             success: function(params){
                 var data=""
                 var optiona=""
