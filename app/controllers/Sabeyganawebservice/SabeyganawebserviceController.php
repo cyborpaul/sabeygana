@@ -43,11 +43,20 @@ class SabeyganawebserviceController extends Controller
     
     if(empty($request_params['email']) OR empty($request_params['pass'])){
         $message="El correo y el email son obligatorios";
+        $params['error'] = array(
+          'message' => $mensaje
+        );
     }elseif(!$result->num_rows){
         $message="El email {$request_params['email']} no fue encontrado";
+        $params['error'] = array(
+          'message' => $mensaje
+        );
 
     }elseif(!password_verify($request_params['pass'], $resulta->usu_txt_password)){
         $message='La contraseña es incorrecta';
+        $params['error'] = array(
+          'message' => $mensaje
+        );
     }
     else{
         $message="Inicio de sesión exitosa";
@@ -72,6 +81,9 @@ class SabeyganawebserviceController extends Controller
           'ganancia'=>$this->ganancia,
           'game'=>$this->game
         );
+        $params['successful'] = array(
+          'message' => $mensaje
+        );
     }
 
 /*     $result = $this->login->signIn($request_params['email']);
@@ -87,10 +99,8 @@ class SabeyganawebserviceController extends Controller
     } */
       
 
-    $this->mensaje=$message;
-    $params['estado'] = array(
-        'message' => $this->mensaje
-      );
+    
+
       header('Content-Type: application/json');
       echo json_encode($params);
   }
