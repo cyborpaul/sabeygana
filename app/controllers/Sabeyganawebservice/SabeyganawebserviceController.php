@@ -3,6 +3,7 @@ defined('BASEPATH') or exit('No se permite acceso directo');
 require_once ROOT .'/sabeygana/app/models/Register/RegisterModel.php';
 require_once ROOT .'/sabeygana/app/models/Home/HomeModel.php';
 require_once ROOT.'/sabeygana/app/models/Login/LoginModel.php';
+require_once ROOT . '/sabeygana/app/models/Home/HomeModel.php';
 
 
 class SabeyganawebserviceController extends Controller
@@ -17,6 +18,8 @@ class SabeyganawebserviceController extends Controller
     public $modeltwo;
 
     public $login;
+
+    public $home;
     /**
      * Inicializa valores 
      */
@@ -25,6 +28,7 @@ class SabeyganawebserviceController extends Controller
       $this->model = new RegisterModel();
       $this->modeltwo = new HomeModel();
       $this->login = new LoginModel();
+      $this->home=new HomeModel();
       $this->nombre = 'Mundo';
     }
 
@@ -34,8 +38,7 @@ class SabeyganawebserviceController extends Controller
     }
 
 
-    public function signin($request_params)
-  {
+  public function signin($request_params){
 
     $result = $this->login->signInv($request_params['email']);
     
@@ -90,31 +93,14 @@ class SabeyganawebserviceController extends Controller
         );
     }
 
-/*     $result = $this->login->signIn($request_params['email']);
 
-    if(!$result->num_rows){
-        $message="El email {$request_params['email']} no fue encontrado";
-    }  
-
-    $result = $result->fetch_object();
-
-    if(!password_verify($request_params['pass'], $result->usu_txt_password)){
-        $message='La contraseña es incorrecta';
-    } */
-      
 
     
 
       header('Content-Type: application/json');
       echo json_encode($params);
   }
-
-
-
-
-
-
-    public function user($request_params){
+  public function user($request_params){
         $res = $this->modeltwo->getUser($request_params);
         $this->id = $res['usu_int_id'];
         $this->nombre=$res['usu_txt_nombre'];
@@ -139,7 +125,52 @@ class SabeyganawebserviceController extends Controller
         header('Content-Type: application/json');
         echo json_encode($params);
 
+  }
+
+  public function addUser($request_params){
+    $result = $this->model->add($request_params);
+    if($result==1){
+      $message="Nuevo usuario registrado correctamente";
+      $this->message = $message;
+      $params['successful'] = array(
+        'message' => $this->message
+      );
+    }else{
+      $message="Hubo un problema en el registro";
+      $this->message = $message;
+      $params['error'] = array(
+        'message' => $this->message
+      );
+
     }
+    header('Content-Type: application/json');
+    echo json_encode($params);
+  }
+
+  public function level($request_params){
+    $id = $request_params['id_jugador'];
+    $nivel= $request_params['nivel_jugador'];
+    $nivelexitoso=$nivel+1;
+    $id_pregunta=$request_params['question'];
+    $respuesta=$request_params['answer'];
+    $ganancia=$request_params['ganancia'];
+    $saldo=$request_params['saldo'];
+
+    $res=$this->home->actualizarJugada($request_params);
+    $actualizar=$this->home->actualizarJugador($request_params);
+    $actualizarmovimiento=$this->home->actualizarMovimiento($request_params);
+
+    if($res==1){
+      $message="Actualización correcta";
+      $this->message = $message;
+      $params['successful'] = array(
+        'message' => $this->message
+      );
+
+    }
+    header('Content-Type: application/json');
+    echo json_encode($params);
+  }
 
 
 
